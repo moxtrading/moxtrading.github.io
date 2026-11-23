@@ -360,3 +360,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bt.plain{min-width:560px}
 .bt.plain tbody tr{cursor:default}
 .bt.plain tbody tr:hover{background:transparent}
+
+.p-actions{display:flex;gap:8px}
+.icon-btn.on{color:var(--accent);border-color:var(--accent)}
