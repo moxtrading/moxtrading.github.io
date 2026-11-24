@@ -453,3 +453,62 @@ button.cal-day[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent-2),0
 .ai-cnt{margin-right:auto;font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums}
 .ai-rules-foot .btn[disabled]{opacity:.5;cursor:not-allowed}
 .ai-ok{margin:0;color:var(--gain);font-size:13.5px}
+/* 14. Menu du compte et fenêtre « Mon compte » */
+.avatar{flex:none;width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;overflow:hidden;font:700 13px var(--display);color:#fff;background:linear-gradient(150deg,#268BFF,#0055C8);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 0 1.5px rgba(150,200,255,.35)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar.lg{width:42px;height:42px;font-size:17px}
+.avatar.xl{width:88px;height:88px;font-size:34px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 0 2px rgba(150,200,255,.45),0 10px 28px rgba(0,123,255,.3)}
+.acct>summary.acct-btn{display:inline-flex;align-items:center;gap:9px;max-width:200px;padding:5px 12px 5px 5px;border-radius:99px}
+.acct-nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct-menu{width:290px;min-width:0;box-sizing:border-box;padding:8px;gap:2px;border-radius:18px;top:calc(100% + 8px);box-shadow:var(--glass-hi),0 22px 50px rgba(0,0,0,.55)}
+.acct-head{display:flex;align-items:center;gap:12px;padding:10px 10px 12px}
+.acct-id{display:flex;flex-direction:column;min-width:0;gap:2px}
+.acct-id strong{font:600 15px var(--display);color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct-id span{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct-menu p{word-break:normal}
+.acct-sep{height:1px;margin:4px 6px;background:rgba(130,175,255,.14)}
+.acct-item{display:flex;align-items:center;gap:11px;width:100%;box-sizing:border-box;padding:10px 12px;border:0;border-radius:12px;background:none;color:var(--ink);font:500 14px var(--text);text-align:left;cursor:pointer;transition:background-color var(--ease),color var(--ease)}
+.acct-item svg{flex:none;color:var(--muted);transition:color var(--ease)}
+.acct-item:hover,.acct-item:focus-within{background:rgba(120,170,255,.10)}
+.acct-item:hover svg{color:#7DB9FF}
+.acct-item.danger{color:#FF8FA3}
+.acct-item.danger svg{color:#FF8FA3}
+.acct-item.danger:hover{background:rgba(255,77,109,.10)}
+.acc-panel{width:min(600px,100%)}
+.acc-sec h3{display:flex;align-items:center;gap:9px}
+.acc-sec h3 svg{color:#7DB9FF}
+.acc-photo{display:flex;align-items:center;gap:20px}
+.acc-photo-t{min-width:0;flex:1}
+.acc-photo-t h3{margin-bottom:6px}
+.acc-photo-t .intro{margin:0 0 12px}
+.acc-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.acc-row.end{justify-content:flex-end;margin-top:4px}
+.acc-row label.btn{cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.acc-row .btn,.acc-inline .btn{display:inline-flex;align-items:center;gap:7px}
+.is-off{opacity:.55;pointer-events:none}
+.acc-inline{display:flex;align-items:flex-end;gap:10px}
+.acc-inline .f{flex:1;min-width:0}
+.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
+.acc-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.acc-sec .inp{width:100%;box-sizing:border-box}
+.acc-current{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;margin-bottom:12px;border-radius:12px;background:var(--glass-in);border:1px solid rgba(130,175,255,.12)}
+.acc-current span:first-child{font-size:12.5px;color:var(--muted)}
+.acc-current strong{font-weight:600;word-break:break-all}
+.badge.ok{display:inline-flex;align-items:center;gap:4px;color:var(--gain);background:rgba(0,212,160,.1);border-color:rgba(0,212,160,.4);font-size:11.5px}
+.acc-msg{margin:10px 0 0;font-size:13.5px;color:var(--muted)}
+.acc-msg.ok{color:var(--gain)}
+.acc-msg.err{color:#FF8FA3}
+.acc-note{margin:0;color:var(--muted);font-size:13.5px;line-height:1.55}
+.linklike[disabled]{opacity:.5;cursor:not-allowed}
+@media (max-width:767px){
+  .acct>summary.acct-btn{padding:4px;max-width:none;border-radius:50%}
+  .acct>summary.acct-btn .acct-nm{display:none}
+  .acct>summary.acct-btn .avatar{width:30px;height:30px}
+  .acct-menu{width:min(290px,calc(100vw - 28px));right:0}
+  .acc-photo{flex-direction:column;text-align:center}
+  .acc-photo .acc-row{justify-content:center}
+  .acc-grid,.acc-grid.three{grid-template-columns:1fr}
+  .acc-inline{flex-direction:column;align-items:stretch}
+  .acc-row.end{justify-content:stretch}
+  .acc-row.end .btn{flex:1;justify-content:center}
+}

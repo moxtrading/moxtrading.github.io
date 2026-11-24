@@ -2,7 +2,8 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import {
   getAuth, onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider,
-  signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut
+  signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut,
+  updateProfile, verifyBeforeUpdateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider
 } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import {
   getFirestore, collection, doc, setDoc, getDoc, deleteDoc, onSnapshot
@@ -24,10 +25,13 @@ const AI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'
     try { initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true }); }
     catch (e) { console.warn('App Check indisponible', e); }
     const auth = getAuth(app);
+    auth.languageCode = 'fr';
     const db = getFirestore(app);
     getRedirectResult(auth).catch(() => {});
 
-    const user = (u) => (u ? { uid: u.uid, name: u.displayName || '', email: u.email || '' } : null);
+    const user = (u) => (u ? { uid: u.uid, name: u.displayName || '', email: u.email || '', verified: !!u.emailVerified,
+      providers: (u.providerData || []).map((p) => p.providerId) } : null);
+    const reauth = (pass) => reauthenticateWithCredential(auth.currentUser, EmailAuthProvider.credential(auth.currentUser.email, pass));
     const mine = (uid, name) => collection(db, 'users', uid, name);
 
     window.__fbResolve({
@@ -58,6 +62,16 @@ const AI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'
       putShot: (uid, id, d) => setDoc(doc(db, 'users', uid, 'shots', id), { d }),
       async getShot(uid, id) { const s = await getDoc(doc(db, 'users', uid, 'shots', id)); return s.exists() ? s.data().d : null; },
       deleteShot: (uid, id) => deleteDoc(doc(db, 'users', uid, 'shots', id)),
+
+      // --- mon compte : nom, e-mail (après confirmation), mot de passe, photo ---
+      updateName: (name) => updateProfile(auth.currentUser, { displayName: name }),
+      async changeEmail(newEmail, pass) {
+        await reauth(pass);
+        await verifyBeforeUpdateEmail(auth.currentUser, newEmail, { url: location.origin + location.pathname });
+      },
+      async changePassword(pass, next) { await reauth(pass); await updatePassword(auth.currentUser, next); },
+      async getProfile(uid) { const s = await getDoc(doc(db, 'users', uid, 'settings', 'profile')); return s.exists() ? s.data() : null; },
+      putProfile: (uid, data) => setDoc(doc(db, 'users', uid, 'settings', 'profile'), data),
 
       // --- consignes permanentes pour l'IA (privées) ---
       async getAiRules(uid) { const s = await getDoc(doc(db, 'users', uid, 'settings', 'ai')); return s.exists() ? s.data() : null; },
