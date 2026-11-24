@@ -423,3 +423,22 @@ button.cal-day[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent-2),0
   .seg button{padding:6px 8px;min-width:30px}
   .r-name{font-size:16px}
 }
+
+/* 13. Analyse par IA */
+.ai-card{padding:20px 22px;display:flex;flex-direction:column;gap:14px;border-color:rgba(90,168,255,.42);background:radial-gradient(120% 160% at 100% 0%,rgba(0,123,255,.20),transparent 58%),var(--glass)}
+.ai-card .card-head{margin:0;flex-wrap:wrap}
+.ai-sub{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+.ai-card .btn[disabled]{opacity:.55;cursor:not-allowed}
+.ai-out{padding:16px 18px;border-radius:var(--r-md);background:var(--glass-in);border:1px solid rgba(130,175,255,.12);max-width:90ch}
+.ai-out h4{margin:14px 0 6px;font:600 15px var(--display);color:#8CC2FF}
+.ai-out h4:first-child{margin-top:0}
+.ai-out p{margin:0 0 8px;line-height:1.6}
+.ai-out ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;line-height:1.55}
+.ai-out strong{color:#fff;font-weight:600}
+.ai-wait{display:flex;align-items:center;gap:10px;margin:0;color:var(--muted)}
+.ai-dot{width:10px;height:10px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 12px var(--accent);animation:mx-pulse 1s ease-in-out infinite}
+@keyframes mx-pulse{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
+.ai-err{margin:0;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,77,109,.35);background:rgba(255,77,109,.08);color:#FFB3C1;font-size:14px}
+.ai-stale{margin:0 0 10px;color:var(--open);font-size:13px}
+.ai-legal{margin:0;color:var(--faint);font-size:12.5px;max-width:90ch}
+@media (max-width:767px){.ai-card{padding:16px}.ai-card .card-head .btn{width:100%;justify-content:center}}

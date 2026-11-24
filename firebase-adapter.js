@@ -1,12 +1,15 @@
 // Relie le site à Firebase (connexion Google / e-mail et base Firestore).
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import {
   getAuth, onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider,
   signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut
-} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import {
   getFirestore, collection, doc, setDoc, getDoc, deleteDoc, onSnapshot
-} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+
+// Modèles essayés dans l'ordre : le premier disponible sur l'offre gratuite est utilisé.
+const AI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'];
 
 (function boot() {
   try {
@@ -50,6 +53,23 @@ import {
       putShot: (uid, id, d) => setDoc(doc(db, 'users', uid, 'shots', id), { d }),
       async getShot(uid, id) { const s = await getDoc(doc(db, 'users', uid, 'shots', id)); return s.exists() ? s.data().d : null; },
       deleteShot: (uid, id) => deleteDoc(doc(db, 'users', uid, 'shots', id)),
+
+      // --- analyse par IA (Gemini, via Firebase AI Logic ; chargée seulement à la demande) ---
+      async ai(prompt) {
+        const m = await import('https://www.gstatic.com/firebasejs/12.19.0/firebase-ai.js');
+        const svc = m.getAI(app, { backend: new m.GoogleAIBackend() });
+        let last = null;
+        for (const name of AI_MODELS) {
+          try {
+            const res = await m.getGenerativeModel(svc, { model: name }).generateContent(prompt);
+            return res.response.text();
+          } catch (e) {
+            last = e;
+            if (!/404|not.?found|not supported|unknown model|no longer available/i.test(String((e && e.message) || ''))) throw e;
+          }
+        }
+        throw last;
+      },
 
       // --- trades partagés (lisibles par toute personne qui a le lien) ---
       putShared: (uid, token, data) => setDoc(doc(db, 'shared', token), { ...data, ownerUid: uid }),
