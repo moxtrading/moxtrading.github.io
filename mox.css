@@ -442,3 +442,4 @@ button.cal-day[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent-2),0
 .ai-stale{margin:0 0 10px;color:var(--open);font-size:13px}
 .ai-legal{margin:0;color:var(--faint);font-size:12.5px;max-width:90ch}
 @media (max-width:767px){.ai-card{padding:16px}.ai-card .card-head .btn{width:100%;justify-content:center}}
+.grecaptcha-badge{visibility:hidden!important}
