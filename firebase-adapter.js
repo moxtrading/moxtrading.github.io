@@ -7,10 +7,10 @@ import {
 import {
   getFirestore, collection, doc, setDoc, getDoc, deleteDoc, onSnapshot
 } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app-check.js';
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app-check.js';
 
 // Modèles essayés dans l'ordre : le premier disponible sur l'offre gratuite est utilisé.
-// Clé publique reCAPTCHA v3 (App Check) : elle prouve à Firebase que les demandes viennent de ce site.
+// Clé publique reCAPTCHA (Fraud Defense, pour App Check) : elle prouve à Firebase que les demandes viennent de ce site.
 const RECAPTCHA_SITE_KEY = '6Le_ci8uAAAAAFdV0RnUeK4GKLPO5vpc5hGXR8Fz';
 const AI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'];
 
@@ -21,7 +21,7 @@ const AI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'
     if (!configured) { window.__fbResolve({ configured: false }); return; }
 
     const app = initializeApp(cfg);
-    try { initializeAppCheck(app, { provider: new ReCaptchaV3Provider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true }); }
+    try { initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true }); }
     catch (e) { console.warn('App Check indisponible', e); }
     const auth = getAuth(app);
     const db = getFirestore(app);
