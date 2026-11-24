@@ -59,6 +59,10 @@ const AI_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.0-flash'
       async getShot(uid, id) { const s = await getDoc(doc(db, 'users', uid, 'shots', id)); return s.exists() ? s.data().d : null; },
       deleteShot: (uid, id) => deleteDoc(doc(db, 'users', uid, 'shots', id)),
 
+      // --- consignes permanentes pour l'IA (privées) ---
+      async getAiRules(uid) { const s = await getDoc(doc(db, 'users', uid, 'settings', 'ai')); return s.exists() ? s.data() : null; },
+      putAiRules: (uid, data) => setDoc(doc(db, 'users', uid, 'settings', 'ai'), data),
+
       // --- analyse par IA (Gemini, via Firebase AI Logic ; chargée seulement à la demande) ---
       async ai(prompt) {
         const m = await import('https://www.gstatic.com/firebasejs/12.19.0/firebase-ai.js');

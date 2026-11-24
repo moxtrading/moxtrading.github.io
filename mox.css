@@ -443,3 +443,13 @@ button.cal-day[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent-2),0
 .ai-legal{margin:0;color:var(--faint);font-size:12.5px;max-width:90ch}
 @media (max-width:767px){.ai-card{padding:16px}.ai-card .card-head .btn{width:100%;justify-content:center}}
 .grecaptcha-badge{visibility:hidden!important}
+.ai-rules{border-top:1px solid rgba(130,175,255,.12);padding-top:12px}
+.ai-rules>summary .badge{margin-left:2px}
+.badge.ai-on{color:#7DB9FF;background:rgba(0,123,255,.14);border-color:rgba(90,168,255,.45);font-size:11.5px}
+.ai-rules-body{display:grid;gap:10px;max-width:90ch}
+.ai-rules-lbl{font-size:13.5px;color:var(--muted)}
+.ai-rules-in{width:100%;min-height:160px;max-height:60vh;resize:vertical;font:inherit;line-height:1.5;padding:10px 12px;box-sizing:border-box}
+.ai-rules-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ai-cnt{margin-right:auto;font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.ai-rules-foot .btn[disabled]{opacity:.5;cursor:not-allowed}
+.ai-ok{margin:0;color:var(--gain);font-size:13.5px}
