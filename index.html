@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=4">
-<link rel="stylesheet" href="mox.css?v=8">
+<link rel="stylesheet" href="mox.css?v=9">
 <script>window.FBReady = new Promise(function (r) { window.__fbResolve = r; });</script>
 <script src="firebase-config.js"></script>
 <script type="module" src="firebase-adapter.js?v=6"></script>
@@ -53,7 +53,8 @@
           <div class="acct-head"><span class="avatar lg" id="acctAv2" aria-hidden="true"></span><div class="acct-id"><strong id="acctName2"></strong><span id="acctMail"></span></div></div>
           <div class="acct-sep"></div>
           <button type="button" class="acct-item" id="openAccount">Mon compte</button>
-          <label class="acct-item" id="importLbl">Importer des trades (.json)<input type="file" accept="application/json,.json" id="importFile" class="sr-only"></label>
+          <label class="acct-item" id="importLbl">Importer des trades (JSON ou CSV)<input type="file" accept="application/json,.json,text/csv,.csv,text/plain,.txt" id="importFile" class="sr-only"></label>
+          <button type="button" class="acct-item" id="csvModel">Modèle CSV à remplir</button>
           <div class="acct-sep"></div>
           <button type="button" class="acct-item danger" id="logout">Se déconnecter</button>
         </div>
@@ -147,6 +148,6 @@
   </div>
 </div>
 
-<script src="app.js?v=12"></script>
+<script src="app.js?v=13"></script>
 </body>
 </html>
